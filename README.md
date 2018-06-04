@@ -1,11 +1,2 @@
 # Adrenaline Watch Face
-
-Interactive Android Wear watch face.
-- Analog watch face.
-- Multiple complications.
-
-![](https://raw.githubusercontent.com/marcouberti/adrenaline_watch_face/master/images/screen_1.png)  
-![](https://raw.githubusercontent.com/marcouberti/adrenaline_watch_face/master/images/screen_2.png)  
-![](https://raw.githubusercontent.com/marcouberti/adrenaline_watch_face/master/images/screen_3.png)  
-![](https://raw.githubusercontent.com/marcouberti/adrenaline_watch_face/master/images/screen_4.png)  
-![](https://raw.githubusercontent.com/marcouberti/adrenaline_watch_face/master/images/screen_5.png)  
+My fork of marcouberti/adrenaline_watch_face.  Making a few minor changes, fixing the locks to not consume abnormal levels of battery, attempt to fix config menu on Wear 2.0 for Wear24.
