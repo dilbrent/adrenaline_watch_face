@@ -17,6 +17,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
@@ -159,6 +160,8 @@ public class SonicBoomFace extends CanvasWatchFaceService {
          */
         boolean mLowBitAmbient;
 
+        protected PowerManager.WakeLock mWakeLock;
+
         @Override
         public void onApplyWindowInsets(WindowInsets insets) {
             super.onApplyWindowInsets(insets);
@@ -216,13 +219,17 @@ public class SonicBoomFace extends CanvasWatchFaceService {
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
 
+            final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            this.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+            this.mWakeLock.acquire();
+
             setWatchFaceStyle(new WatchFaceStyle.Builder(SonicBoomFace.this)
                     .setAcceptsTapEvents(true)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
                     .setStatusBarGravity(Gravity.CENTER_VERTICAL)
                     .setShowSystemUiTime(false)
-                            //setViewProtectionMode(WatchFaceStyle.PROTECT_STATUS_BAR)
+                    //setViewProtectionMode(WatchFaceStyle.PROTECT_STATUS_BAR)
                     .build());
 
             //bg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
@@ -328,6 +335,7 @@ public class SonicBoomFace extends CanvasWatchFaceService {
 
         @Override
         public void onDestroy() {
+            this.mWakeLock.release();
             mUpdateTimeHandler.removeMessages(MSG_UPDATE_TIME);
             super.onDestroy();
         }
